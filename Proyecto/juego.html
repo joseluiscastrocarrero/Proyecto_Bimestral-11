@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            width: 960px;
+            margin:0 auto;
+        }
+        h1{
+            text-align: center;
+
+        }
+        #miCanvas{
+            border:dotted 2px yellow;
+            background: green;
+        }
+    </style>
+</head>
+<body>
+    <h1>JUEGO DE MEMORIA</h1>
+    <canvas id="miCanvas" width="500px" height="300px">Tu navegador no soporta </canvas>
+    <script>
+
+        /**********Variables************/
+            var ctx,canvas;
+            var colorAtras = "blue";
+            var inicioX = 45;
+            var inicioy = 50;
+            var cartaMargen = 30;
+            var cartaLon = 30;
+            var cartaAncho = cartaLon *4;
+            var cartaLargo = cartaLon *4;
+            var cartas_array = new Array();
+
+
+        window.onload = function()
+        {
+             
+            /*****Objetos****/
+            function Carta(x,y,ancho,largo,info){
+                this.x = x;
+                this.y = y;
+                this.ancho = ancho;
+                this.largo = largo;
+                this.info = info;
+                this.dibuja = dibujaCarta;
+            }
+            function dibujaCarta(){
+                ctx.fillStyle=colorAtras;
+               ctx.fillRect(this.x,this.y,this.ancho,this.largo);
+
+            function tablero(){
+                var i;  var carta;
+                var x = inicioX;
+                var y = inicioy;
+                for(i=0;i<6;i++){
+                    carta = new Carta(x,y,cartaAncho,cartaLargo,i);
+                    cartas_array.push(carta);
+                    carta.dibuja();
+                    //creamos la segunda carta
+                    carta = new carta(x,y+cartaAncho+cartaMargen,cartaAncho,cartaLargo,i);
+                    cartas_array.push(carta);
+                    carta.dibuja();
+                    //Aumentamos el valor de x
+                    x+=cartaAncho + cartaMargen;
+
+                    function barajar(){
+
+                        var i,j,k;
+                        var temporal;
+                        var lon = cartas_array.length;
+                        for(j=0;j<lon*3;j++){
+                            i = Math.floor(Math.random()*lon);
+                            k = Math.floor(Math.random()*lon);
+                            //
+                            temporal = cartas_array[i].info;
+                            //
+                            cartas_array[i].info = cartas_array[k];
+                            cartas_array[k.info]= temporal;
+                        }
+
+                    }
+                    /***TO DO***/
+                    window.onload = function(){
+                        canvas = document.getElementById("miCanvas");
+                        if(canvas && canvas.getContext){
+                            ctx = canvas.getContext("2d");
+                            if(ctx){
+                                tablero();
+                                baraja();
+                            } else{
+                                alert("error al crear tu contexto");
+                            }
+                        }
+                    }
+
+                }
+
+               }
+            }
+            function tablero(){
+                    }
+            /***TO DO***/
+            window.onload = function(){
+                canvas = document.getElementById("miCanvas");
+                if(canvas && canvas.getContext){
+                    ctx = canvas.getContext("2d");
+                    if(ctx){
+                        tablero();
+                    }else{
+                        alert("Error al crear tu contexto");
+                    }
+                    
+                }
+            }
+               
+                
+            
+            
+            
+
+
+            
+
+        }
+    </script>
+</body>
+</html>
